@@ -27,13 +27,36 @@ async function run() {
             }
         });
 
-        const list = await page.evaluate(() => {
-            const divs = document.querySelectorAll('.name.ng-binding'); // Select all div elements on the page
-            const divTexts = Array.from(divs).map(div => div.textContent); // Extract text content from divs
-            return divTexts; // Return the extracted text content
+        const titles = await page.evaluate(() => {
+            const titleElements = document.querySelectorAll('.name.ng-binding');
+            return Array.from(titleElements).map(el => el.textContent);
         });
 
-        console.log(list);
+        const propertyDivs = await page.evaluate(() => {
+            const propertyDivs = document.querySelectorAll('.property.ng-scope'); // Select all property divs
+            const propertyData = [];
+
+            for (const propertyDiv of propertyDivs) {
+                const imgElements = propertyDiv.querySelectorAll('img'); // Select all img elements within the current property div
+                const imgUrls = Array.from(imgElements)
+                    .map(img => img.src) // Extract the src attribute values
+                    .slice(0, 3); // Take the first 3 images
+                propertyData.push(imgUrls);
+            }
+
+            return propertyData;
+        });
+
+        const properties = [];
+        for (let i = 0; i < titles.length; i++) {
+            const property = {
+                title: titles[i],
+                images: propertyDivs[i]
+            }
+            properties.push(property);
+        }
+
+        console.log(properties);
     }
 
     await browser.close();
