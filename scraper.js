@@ -32,6 +32,7 @@ async function run() {
             return Array.from(titleElements).map(el => el.textContent);
         });
 
+        // TODO refactor
         const propertyDivs = await page.evaluate(() => {
             const propertyDivs = document.querySelectorAll('.property.ng-scope'); // Select all property divs
             const propertyData = [];
@@ -49,6 +50,7 @@ async function run() {
 
         const properties = [];
         for (let i = 0; i < titles.length; i++) {
+            // TODO store to db
             const property = {
                 title: titles[i],
                 images: propertyDivs[i]
