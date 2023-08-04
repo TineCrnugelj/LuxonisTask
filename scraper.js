@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const pool = require('./db');
 // dir-property-list
 // title: name ng-binding
 
@@ -48,17 +49,13 @@ async function run() {
             return propertyData;
         });
 
-        const properties = [];
         for (let i = 0; i < titles.length; i++) {
-            // TODO store to db
-            const property = {
-                title: titles[i],
-                images: propertyDivs[i]
-            }
-            properties.push(property);
+            await pool.query(
+              'INSERT INTO property (title, image_urls) VALUES($1, $2)',
+              [titles[i], propertyDivs[i]]
+            );
         }
 
-        console.log(properties);
     }
 
     await browser.close();
