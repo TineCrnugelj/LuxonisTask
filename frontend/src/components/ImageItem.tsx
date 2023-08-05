@@ -7,7 +7,7 @@ interface ImageItemsProps {
 const ImageItem: React.FC<ImageItemsProps> = ({title, imageUrl}) => {
   return (
     <Fragment>
-      <img src={imageUrl} alt={title}/>
+      <img src={imageUrl} alt={title} loading='lazy' />
     </Fragment>
 
   );
