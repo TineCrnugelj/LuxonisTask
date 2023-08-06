@@ -28,7 +28,7 @@ const PropertyItem: React.FC<{property: Property}> = ({property}) => {
         </div>
 
       </div>
-      <h1 className='text-2xl text-center text-blue-700 mb-2'>{property.title}</h1>
+      <h1 className='text-2xl text-center text-blue-800 mb-2'>{property.title}</h1>
     </div>
   );
 }

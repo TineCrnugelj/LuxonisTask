@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export function getProperties() {
-  return axios
-    .get('http://localhost:5000/properties')
-    .then(res => res.data);
+export const getProperties = async (page = 1) => {
+  const response = await axios.get(`http://localhost:5000/properties?page=${page}`);
+  return response.data;
 }
