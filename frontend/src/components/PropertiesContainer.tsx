@@ -17,7 +17,8 @@ const PropertiesContainer = () => {
 
   return (
     <div className='flex flex-col items-center'>
-      <h1 className='text-5xl'>Properties</h1>
+      <h1 className='text-blue-700 text-5xl font-bold'>Commercial properties for sale</h1>
+      <p>Pagination here</p>
       <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10'>
         {propertiesQuery.data.map((property: Property) => (
           <PropertyItem key={property.property_id} property={property} />
