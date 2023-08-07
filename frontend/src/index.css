@@ -4,7 +4,7 @@
 
 @layer components {
     .page-button {
-        @apply bg-blue-400 hover:bg-blue-600 m-2 w-10 h-10 rounded-md text-white;
+        @apply bg-white hover:bg-slate-200 m-2 w-8 h-8 rounded-md text-black;
     }
 }
 

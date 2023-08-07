@@ -14,8 +14,8 @@ app.get('/properties', async (req, res) => {
   const page = req.query.page;
   const items_per_page = 8;
 
-  if (page) {
-    const startIndex = page * items_per_page;
+  if (page > 0) {
+    const startIndex = (page - 1) * items_per_page;
     const properties = await pool.query(
       `SELECT * FROM property OFFSET ${startIndex} LIMIT ${items_per_page}`
     );
