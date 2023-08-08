@@ -1,10 +1,26 @@
-const express = require('express')
-const app = express();
+const express = require('express');
+const {Sequelize} = require('sequelize');
 const cors = require('cors');
+const config = require('../config')['development'];
 const port = 5000;
-const pool = require('./db');
 
-app.use(cors())
+const app = express();
+const pool = require('./db/db');
+const Property = require('./models/Property');
+
+app.use(cors());
+
+async function connectToPostgres() {
+  const sequelize = new Sequelize(config.postgres.options);
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+
+config.postgres.client = connectToPostgres();
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -16,16 +32,21 @@ app.get('/properties', async (req, res) => {
 
   if (page > 0) {
     const startIndex = (page - 1) * items_per_page;
+    const properties = await Property.findAll({offset: startIndex, limit: items_per_page})
+    /*
     const properties = await pool.query(
       `SELECT * FROM property OFFSET ${startIndex} LIMIT ${items_per_page}`
     );
+    */
 
-    return res.json(properties.rows).status(200);
+    return res.json(properties).status(200);
   }
-
+  /*
   const properties = await pool.query(
     `SELECT * FROM property LIMIT ${items_per_page}`
   );
+  */
+  const properties = await Property.findAll({limit: items_per_page})
 
   return res.json(properties.rows).status(200);
 });

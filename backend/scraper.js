@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
-const pool = require('./db');
+const pool = require('./db/db');
+const Property = require('./models/Property');
 // dir-property-list
 // title: name ng-binding
 
@@ -10,9 +11,10 @@ const PAGES_TO_SCRAPE = NUMBER_OF_ITEMS / ITEMS_PER_PAGE;
 async function run() {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    console.log(PAGES_TO_SCRAPE);
+    console.log('Started scraping!');
 
     for (let pageNumber = 1; pageNumber <= PAGES_TO_SCRAPE; pageNumber++) {
+        console.log(`Page ${pageNumber} of ${PAGES_TO_SCRAPE}`)
         const url = `https://www.sreality.cz/en/search/for-sale/commercial-properties?page=${pageNumber}`;
         await page.goto(url, { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] });
 
@@ -50,14 +52,17 @@ async function run() {
         });
 
         for (let i = 0; i < titles.length; i++) {
+            await Property.create({title: titles[i], image_urls: propertyDivs[i]})
+            /*
             await pool.query(
               'INSERT INTO property (title, image_urls) VALUES($1, $2)',
               [titles[i], propertyDivs[i]]
             );
+            */
         }
 
     }
-
+    console.log('Finished scraping!');
     await browser.close();
 }
 
