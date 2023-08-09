@@ -33,6 +33,7 @@ app.get('/properties', async (req, res) => {
   if (page > 0) {
     const startIndex = (page - 1) * items_per_page;
     const properties = await Property.findAll({offset: startIndex, limit: items_per_page})
+    
     /*
     const properties = await pool.query(
       `SELECT * FROM property OFFSET ${startIndex} LIMIT ${items_per_page}`
@@ -46,9 +47,9 @@ app.get('/properties', async (req, res) => {
     `SELECT * FROM property LIMIT ${items_per_page}`
   );
   */
-  const properties = await Property.findAll({limit: items_per_page})
+  const properties = await Property.findAll({limit: items_per_page});
 
-  return res.json(properties.rows).status(200);
+  return res.json(properties).status(200);
 });
 
 app.listen(port, () => {

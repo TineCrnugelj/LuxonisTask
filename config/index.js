@@ -2,12 +2,13 @@ module.exports = {
     development: {
         postgres: {
             options: {
-                host: 'localhost',
+                host: 'postgres',
                 port: 5432,
-                database: 'dev',
+                database: 'postgres',
                 dialect: 'postgres',
                 username: 'postgres',
-                password: 'admin'
+                password: 'admin',
+                sync: true,
             },
             client: null
         }

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { getProperties } from "../api/properties.ts";
 import { useQuery } from "@tanstack/react-query";
 import PropertyItem from "./PropertyItem.tsx";
 import { Property } from "../models/property.ts";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import PaginationButtons from "./PaginationButtons.tsx";
 
 const PropertiesContainer = () => {
@@ -14,7 +14,6 @@ const PropertiesContainer = () => {
     status,
     error,
     data: properties,
-    isPreviousData,
   } = useQuery(["/properties", page], () => getProperties(page), {
     keepPreviousData: true,
   });

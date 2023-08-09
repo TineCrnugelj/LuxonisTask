@@ -1,10 +1,6 @@
 const {Sequelize} = require('sequelize');
-
-const sequelize = new Sequelize('node_live_db', 'tinec', '123456', {
-    host: 'localhost',
-    dialect: 'postgres',
-    port: 5342
-});
+const config = require('../../config')['development'];
+const sequelize = new Sequelize(config.postgres.options);
 
 const Property = sequelize.define('property', {
     id: {
@@ -15,6 +11,18 @@ const Property = sequelize.define('property', {
     },
     title: Sequelize.STRING,
     image_urls: Sequelize.ARRAY(Sequelize.DataTypes.STRING),
+}, {
+    tableName: 'properties',
+    freezeTableName: true,
 });
+
+Property.sync()
+    .then(() => {
+        console.log('Property table created successfully.');
+    })
+    .catch(err => {
+        console.error('Error creating Property table:', err);
+    });
+
 
 module.exports = Property;

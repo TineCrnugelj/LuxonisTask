@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
+const {Sequelize} = require('sequelize');
 const pool = require('./db/db');
+const config = require('../config')['development'];
 const Property = require('./models/Property');
 // dir-property-list
 // title: name ng-binding
@@ -9,7 +11,18 @@ const ITEMS_PER_PAGE = 20;
 const PAGES_TO_SCRAPE = NUMBER_OF_ITEMS / ITEMS_PER_PAGE;
 
 async function run() {
-    const browser = await puppeteer.launch({ headless: true });
+    async function connectToPostgres() {
+        const sequelize = new Sequelize(config.postgres.options);
+        try {
+            await sequelize.authenticate();
+            console.log('Connection has been established successfully.');
+        } catch (error) {
+            console.error('Unable to connect to the database:', error);
+        }
+    }
+      
+    config.postgres.client = connectToPostgres();
+    const browser = await puppeteer.launch({ headless: true, executablePath: '/usr/bin/chromium', userDataDir: '/app/user-data', args: ['--no-sandbox'] });
     const page = await browser.newPage();
     console.log('Started scraping!');
 

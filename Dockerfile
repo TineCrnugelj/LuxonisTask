@@ -1,4 +1,7 @@
-FROM node:14
+FROM node:20
+
+RUN apt-get update && \
+    apt-get install -y chromium
 
 WORKDIR /app
 

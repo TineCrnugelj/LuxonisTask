@@ -3,9 +3,9 @@ services:
   postgres:
     image: postgres:12
     environment:
-      - POSTGRES_DB=node_live_db
-      - POSTGRES_USER=tinec
-      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
     ports:
       - "5432:5432"
     volumes:
@@ -27,12 +27,32 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - PG_DB=node_live_db
-      - PG_USER=tinec
-      - PG_PASSWORD=123456
+      - PG_DB=postgres
+      - PG_USER=postgres
+      - PG_PASSWORD=admin
       - PG_HOST=node_db
     depends_on:
       - postgres
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+      - postgres
+
+  seed:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["node", "backend/scraper.js"]
+    depends_on:
+      - postgres
+
 
 
 volumes:
