@@ -9,6 +9,15 @@ module.exports = {
                 username: 'postgres',
                 password: 'admin',
                 sync: true,
+                retry: {
+                    match: [
+                        Sequelize.ConnectionError,
+                        Sequelize.ConnectionTimedOutError,
+                        Sequelize.TimeoutError,
+                        /Deadlock/i,
+                        'SQLITE_BUSY'],
+                    max: 5
+                }
             },
             client: null
         }

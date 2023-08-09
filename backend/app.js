@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/properties', async (req, res) => {
   const page = req.query.page;
-  const items_per_page = 16;
+  const items_per_page = 8;
 
   if (page > 0) {
     const startIndex = (page - 1) * items_per_page;
