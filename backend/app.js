@@ -5,7 +5,6 @@ const config = require('../config')['development'];
 const port = 5000;
 
 const app = express();
-const pool = require('./db/db');
 const Property = require('./models/Property');
 
 app.use(cors());
@@ -26,27 +25,16 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.get('/properties', async (req, res) => {
+app.get('/api/properties', async (req, res) => {
   const page = req.query.page;
-  const items_per_page = 8;
+  const items_per_page = 16;
 
   if (page > 0) {
     const startIndex = (page - 1) * items_per_page;
     const properties = await Property.findAll({offset: startIndex, limit: items_per_page})
-    
-    /*
-    const properties = await pool.query(
-      `SELECT * FROM property OFFSET ${startIndex} LIMIT ${items_per_page}`
-    );
-    */
 
     return res.json(properties).status(200);
   }
-  /*
-  const properties = await pool.query(
-    `SELECT * FROM property LIMIT ${items_per_page}`
-  );
-  */
   const properties = await Property.findAll({limit: items_per_page});
 
   return res.json(properties).status(200);

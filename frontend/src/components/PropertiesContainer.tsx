@@ -8,20 +8,24 @@ import PaginationButtons from "./PaginationButtons.tsx";
 
 const PropertiesContainer = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(Number(searchParams.get("page")));
+  const [page, setPage] = useState(Number(searchParams.get('page')));
 
   const {
     status,
     error,
     data: properties,
-  } = useQuery(["/properties", page], () => getProperties(page), {
+  } = useQuery(['/properties', page], () => getProperties(page), {
     keepPreviousData: true,
   });
 
-  if (status === "loading") {
-    return <h1>Loading...</h1>;
+  if (status === 'loading') {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <h1 className="text-4xl text-blue-800">Loading properties...</h1>
+      </div>
+    );
   }
-  if (status === "error") {
+  if (status === 'error') {
     return <h1>{JSON.stringify(error)}</h1>;
   }
 
@@ -42,8 +46,8 @@ const PropertiesContainer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-blue-800 text-5xl font-bold mt-4">
+    <div className='flex flex-col items-center'>
+      <h1 className='text-blue-800 text-5xl font-bold mt-4'>
         Commercial properties for sale
       </h1>
       <PaginationButtons
@@ -53,7 +57,7 @@ const PropertiesContainer = () => {
         switchPage={switchPage}
       />
 
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-10">
+      <div className='grid lg:grid-cols-4 md:grid-cols-2 gap-10'>
         {properties.map((property: Property) => (
           <PropertyItem key={property.property_id} property={property} />
         ))}
