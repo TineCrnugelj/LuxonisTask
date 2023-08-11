@@ -18,7 +18,7 @@ module.exports = {
                         Sequelize.TimeoutError,
                         /Deadlock/i,
                         'SQLITE_BUSY'],
-                    max: 5
+                    max: 10
                 }
             },
             client: null

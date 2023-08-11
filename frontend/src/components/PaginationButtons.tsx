@@ -31,7 +31,7 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     <nav className="inline m-6">
       <button
         disabled={currentPage === 1}
-        className={`page-button pl-3 ${
+        className={`page-button pl-2.5 ${
           currentPage === 1 &&
           "hover:bg-slate-300 bg-slate-300 cursor-not-allowed"
         }`}
