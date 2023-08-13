@@ -6,12 +6,9 @@ interface ImageItemsProps {
 }
 const ImageItem: React.FC<ImageItemsProps> = ({ title, imageUrl }) => {
   return (
-    <img
-      className="max-h-96 bg-gradient-to-r from-slate-200 to-slate-300"
-      src={imageUrl}
-      alt={title}
-      loading="lazy"
-    />
+    <div className="w-96 h-72 max-h-96 bg-gradient-to-r from-slate-200 to-slate-300">
+      <img src={imageUrl} alt={title} loading="lazy" />
+    </div>
   );
 };
 

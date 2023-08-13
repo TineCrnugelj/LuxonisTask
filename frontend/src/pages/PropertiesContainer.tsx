@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { getProperties } from "../api/properties.ts";
+import { getProperties } from "../api/properties.js";
 import { useQuery } from "@tanstack/react-query";
-import PropertyItem from "./PropertyItem.tsx";
-import { Property } from "../models/property.ts";
+import PropertyItem from "../components/PropertyItem.js";
+import { Property } from "../models/property.js";
 import { useSearchParams } from "react-router-dom";
-import PaginationButtons from "./PaginationButtons.tsx";
+import PaginationButtons from "../components/PaginationButtons.js";
 
 const PropertiesContainer = () => {
   const [searchParams, setSearchParams] = useSearchParams();

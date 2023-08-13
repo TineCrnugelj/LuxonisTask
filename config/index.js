@@ -1,27 +1,28 @@
-const {Sequelize} = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 module.exports = {
-    development: {
-        postgres: {
-            options: {
-                host: 'postgres',
-                port: 5432,
-                database: 'postgres',
-                dialect: 'postgres',
-                username: 'postgres',
-                password: 'admin',
-                sync: true,
-                retry: {
-                    match: [
-                        Sequelize.ConnectionError,
-                        Sequelize.ConnectionTimedOutError,
-                        Sequelize.TimeoutError,
-                        /Deadlock/i,
-                        'SQLITE_BUSY'],
-                    max: 10
-                }
-            },
-            client: null
-        }
-    }
-}
+  development: {
+    postgres: {
+      options: {
+        host: "postgres",
+        port: 5432,
+        database: "postgres",
+        dialect: "postgres",
+        username: "postgres",
+        password: "admin",
+        sync: true,
+        retry: {
+          match: [
+            Sequelize.ConnectionError,
+            Sequelize.ConnectionTimedOutError,
+            Sequelize.TimeoutError,
+            /Deadlock/i,
+            "SQLITE_BUSY",
+          ],
+          max: 10,
+        },
+      },
+      client: null,
+    },
+  },
+};
