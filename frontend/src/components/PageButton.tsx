@@ -13,6 +13,7 @@ const PageButton: React.FC<PageButtonProps> = ({
   switchPage,
 }) => {
   let [searchParams, setSearchParams] = useSearchParams();
+
   const isActive = useMemo(() => {
     const pageSearchParameter = Number(searchParams.get("page"));
     return (

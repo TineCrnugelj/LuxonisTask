@@ -57,6 +57,9 @@ async function run() {
       return Array.from(titleElements).map((el) => el.textContent);
     });
 
+    /**
+     * Is this function ChatGPT generated xd ? Because GTP makes that kind of comments
+     */
     const propertyDivs = await page.evaluate(() => {
       const imageDivs = document.querySelectorAll(".property.ng-scope"); // Select all property divs
       const imageUrls = [];

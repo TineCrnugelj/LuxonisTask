@@ -1,5 +1,10 @@
 import {ReactElement, useState} from "react";
 
+/***
+ * This is good, always use hooks to share such
+ * logic across the app, not sure why you pass as argument
+ * ReactElement, when you can simply pass number
+ */
 export function useMultiStepForm(steps: ReactElement[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
