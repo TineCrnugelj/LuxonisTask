@@ -1,4 +1,4 @@
-# LuxonisTask
+# PropertiesScraperApp
 
 ## Instructions
 
